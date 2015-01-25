@@ -1,0 +1,19 @@
+{
+    "name": "pensandoodireito/pensandoodireito-network-functions",
+    "type": "wordpress-plugin",
+    "description": "Funções da rede do Pensando o Direito",
+    "keywords": ["plugin", "wordpress", "multisite", "democracy"],
+    "homepage": "https://github.com/pensandoodireito/pensandoodireito-network-functions/",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Marco Antonio Konopacki",
+            "email": "marcoamarelo@gmail.com",
+            "role": "Developer"
+        }
+	],
+    "require": {
+        "composer/installers": "~1.0",
+        "wordpress": ">=3.8"
+    }
+}
