@@ -43,14 +43,21 @@ function pensandoodireito_login_modal() {
 }
 
 add_action( 'login_enqueue_scripts', 'pensandoodireito_login_logo' );
-/**
+/*
  * Função para substituir o logo padrão da tela de login
- */
+*/
 function pensandoodireito_login_logo() { ?>
+    
     <style type="text/css">
-        div#login h1 a {
-            background-image: url(<?php echo get_template_directory_uri(); ?>/images/pensandoodireito-login-logo.png);
+        #login h1 a {
+            background-image: url(<?php echo get_template_directory_uri(); ?>/images/structure/logo-pd-branca.png);
             padding-bottom: 30px;
-        }
+            background-size: initial;
+            background-repeat: no-repeat;
+            height: 80px;
+            width: 225px;
+        } 
     </style>
+   
 <?php }
+ 
