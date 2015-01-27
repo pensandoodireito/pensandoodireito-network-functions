@@ -60,4 +60,22 @@ function pensandoodireito_login_logo() { ?>
     </style>
    
 <?php }
- 
+
+add_action( 'phpmailer_init', 'pensandoodireito_configuracoes_email' );
+/**
+ * Função para forçar conexão no servidor de e-mails
+ */
+ function pensandoodireito_configuracoes_email( $phpmailer ) {
+
+     $phpmailer->isSMTP();
+
+     $phpmailer->SMTPAuth = false;
+
+     $phpmailer->Port = SMTP_PORT;
+
+     $phpmailer->Host = SMTP_HOST;
+
+     $phpmailer->From = SMTP_FROM;
+
+     $phpmailer->FromName = SMTP_FROMNAME;
+ }
