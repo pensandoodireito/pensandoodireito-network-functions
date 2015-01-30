@@ -111,3 +111,5 @@ function pensandoodireito_correcao_ip_proxy_reverso()
     }
     return preg_replace('/[^0-9a-f:\., ]/si', '', $REMOTE_ADDR);
 }
+
+remove_filter('check_comment_flood', 'check_comment_flood_db');
