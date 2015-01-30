@@ -88,3 +88,26 @@ function register_menu_principal() {
     register_nav_menu('menu-principal', 'Menu Principal' );
     register_nav_menu('menu-interno', 'Menu Interno' );
 }
+
+add_filter( 'pre_comment_user_ip', 'pensandoodireito_correcao_ip_proxy_reverso');
+/**
+ * Função para corrigir o ip de origem do usuário que comentar para evitar
+ * a mensagem de "comentando rápido demais"
+ * @return mixed
+ */
+function pensandoodireito_correcao_ip_proxy_reverso()
+{
+    $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+    if (!empty($_SERVER['X_FORWARDED_FOR'])) {
+        $X_FORWARDED_FOR = explode(',', $_SERVER['X_FORWARDED_FOR']);
+        if (!empty($X_FORWARDED_FOR)) {
+            $REMOTE_ADDR = trim($X_FORWARDED_FOR[0]);
+        }
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $HTTP_X_FORWARDED_FOR= explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        if (!empty($HTTP_X_FORWARDED_FOR)) {
+            $REMOTE_ADDR = trim($HTTP_X_FORWARDED_FOR[0]);
+        }
+    }
+    return preg_replace('/[^0-9a-f:\., ]/si', '', $REMOTE_ADDR);
+}
