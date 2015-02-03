@@ -142,3 +142,6 @@ function pensandoodireito_bitly_url($url,$format = 'xml',$version = '2.0.1')
         return 'http://bit.ly/'.$xml->results->nodeKeyVal->hash;
     }
 }
+
+// Esconde a barra do wordpress
+add_filter('show_admin_bar', '__return_false');
