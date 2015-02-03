@@ -113,3 +113,32 @@ function pensandoodireito_correcao_ip_proxy_reverso()
 }
 
 remove_filter('check_comment_flood', 'check_comment_flood_db');
+
+/**
+ * Função para encurtar URLs
+ *
+ * @param $url
+ * @param string $format
+ * @param string $version
+ * @return string
+ */
+function pensandoodireito_bitly_url($url,$format = 'xml',$version = '2.0.1')
+{
+    $bitly_login = BITLY_LOGIN;
+    $bitly_api = BITLY_APIKEY;
+
+    $bitly = 'http://api.bit.ly/shorten?version='.$version.'&longUrl='.urlencode($url).'&login='.$bitly_login.'&apiKey='.$bitly_api.'&format='.$format;
+
+    $response = file_get_contents($bitly);
+
+    if(strtolower($format) == 'json')
+    {
+        $json = @json_decode($response,true);
+        return $json['results'][$url]['shortUrl'];
+    }
+    else //For XML
+    {
+        $xml = simplexml_load_string($response);
+        return 'http://bit.ly/'.$xml->results->nodeKeyVal->hash;
+    }
+}
