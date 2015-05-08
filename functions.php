@@ -155,7 +155,7 @@ class Pensando_registration_form {
     private $username;
     private $email;
     private $password;
-    private $fname; // Full Name
+    private $nice_name; // Full Name
 
     function __construct(){
         add_shortcode('pd_registration_form', array($this, 'shortcode'));
@@ -166,7 +166,7 @@ class Pensando_registration_form {
       $reg_username = ( ! empty( $_POST['reg_username'] ) ) ? trim( $_POST['reg_username'] ) : '';
       $reg_email = ( ! empty( $_POST['reg_email'] ) ) ? trim( $_POST['reg_email'] ) : '';
       $reg_password = ( ! empty( $_POST['reg_password'] ) ) ? trim( $_POST['reg_password'] ) : '';
-      $reg_fname = ( ! empty( $_POST['reg_fname'] ) ) ? trim( $_POST['reg_fname'] ) : '';
+      $reg_nice_name = ( ! empty( $_POST['reg_nice_name'] ) ) ? trim( $_POST['reg_nice_name'] ) : '';
 
       ?>
       <div id="hello">
@@ -208,8 +208,8 @@ class Pensando_registration_form {
                       <h4 class="font-roboto red">Comece a participar:</h4>
                       <form id="reg_form" method="POST" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
                           <div class="form-group">
-                              <label for="reg_fname" class="control-label">Nome Completo<span class="red">*</span></label>
-                              <input type="text" class="form-control" id="reg_fname" name="reg_fname" value="<?php echo $reg_fname; ?>" required title="Insira seu nome">
+                              <label for="reg_nice_name" class="control-label">Nome Completo<span class="red">*</span></label>
+                              <input type="text" class="form-control" id="reg_nice_name" name="reg_nice_name" value="<?php echo $reg_nice_name; ?>" required title="Insira seu nome">
                               <span class="help-block"></span>
 
                               <label for="reg_username" class="control-label">Nome de Usuário<span class="red">*</span></label>
@@ -241,7 +241,7 @@ class Pensando_registration_form {
     }
 
     function validation() {
-      if (empty($this->username) || empty($this->email) || empty($this->password) || empty($this->fname) ){
+      if (empty($this->username) || empty($this->email) || empty($this->password) || empty($this->nice_name) ){
           return new WP_Error('field', 'Você deixou de preencher pelo menos um campo obrigatório.');
       }
 
@@ -280,7 +280,7 @@ class Pensando_registration_form {
         $userdata = array(
             'user_login' => esc_attr($this->username),
             'user_email' => esc_attr($this->email),
-            'user_fname' => esc_attr($this->fname),
+            'user_nice_name' => esc_attr($this->nice_name),
             'user_pass' => esc_attr($this->password),
         );
 
@@ -309,7 +309,7 @@ class Pensando_registration_form {
             $this->username = $_POST['reg_username'];
             $this->email = $_POST['reg_email'];
             $this->password = $_POST['reg_password'];
-            $this->fname = $_POST['reg_fname'];
+            $this->nice_name = $_POST['reg_nice_name'];
             $this->termos_uso = $_POST['termos_uso'];
 
             $this->validation();
