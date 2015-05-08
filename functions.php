@@ -171,7 +171,7 @@ class Pensando_registration_form {
       ?>
       <div id="hello">
           <div class="col-lg-12 text-center">
-              <h1 class="font-roboto red">Mais de <strong><?php echo count_users()['total_users']; ?></strong> pessoas já estão participando!</h1>
+              <h1 class="font-roboto red">Mais de <strong><?php echo get_user_count(); ?></strong> pessoas já estão participando!</h1>
           </div>
           <div class="container">
               <div class="row text-center">
