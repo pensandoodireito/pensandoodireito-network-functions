@@ -47,7 +47,7 @@ add_action( 'login_enqueue_scripts', 'pensandoodireito_login_logo' );
  * Função para substituir o logo padrão da tela de login
 */
 function pensandoodireito_login_logo() { ?>
-    
+
     <style type="text/css">
         #login h1 a {
             background-image: url(<?php echo get_template_directory_uri(); ?>/images/structure/logo-pd-branca.png);
@@ -56,9 +56,9 @@ function pensandoodireito_login_logo() { ?>
             background-repeat: no-repeat;
             height: 80px;
             width: 225px;
-        } 
+        }
     </style>
-   
+
 <?php }
 
 add_action( 'phpmailer_init', 'pensandoodireito_configuracoes_email' );
@@ -124,12 +124,22 @@ remove_filter('check_comment_flood', 'check_comment_flood_db');
  */
 function pensandoodireito_bitly_url($url,$format = 'xml',$version = '2.0.1')
 {
+    if (!defined("BITLY_LOGIN") || !defined("BITLY_APIKEY")) { return $url; }
+
     $bitly_login = BITLY_LOGIN;
     $bitly_api = BITLY_APIKEY;
 
     $bitly = 'http://api.bit.ly/shorten?version='.$version.'&longUrl='.urlencode($url).'&login='.$bitly_login.'&apiKey='.$bitly_api.'&format='.$format;
 
-    $response = file_get_contents($bitly);
+    $ctx = stream_context_create(array('http'=>
+    array(
+                'timeout' => 5, // 10 Seconds
+            )
+        ));
+
+    $response = @file_get_contents($bitly,false,$ctx);
+
+    if ($response == FALSE) { return $url; }
 
     if(strtolower($format) == 'json')
     {
