@@ -323,8 +323,6 @@ class Pensando_registration_form {
 new Pensando_registration_form;
 
 
-
-
 /*
  * Remove Blog Slug Functions
  * Based on:
@@ -422,3 +420,42 @@ function rbs_admin_notice() {
         echo '</p>';
     echo '</div>';
 } add_action( 'admin_notices', 'rbs_admin_notice' );
+
+
+/**
+ * Função para verificar se a página já existe
+ **/
+function get_page_by_name($pagename){
+    $pages = get_pages();
+    $pagename_sanitized = sanitize_title($pagename);
+    foreach ($pages as $page) if ($page->post_name == $pagename_sanitized) return true;
+    return false;
+}
+
+/**
+ *  Função que cria uma determinada página caso ela não exista
+ * @titulo: Título da página (e que será utilizado como url da mesma)
+ * @nome: url da página. Caso não haja, será utilizado o título ''sanitizado'
+ * @conteudo: conteúdo a ser adicionado à página
+ **/
+function pd_create_page($args) {
+  if (!isset($args['titulo'])) return false;
+
+  if( !isset($args['nome']) ) $args['nome'] = sanitize_title($args['titulo']);
+
+  if (!get_page_by_name($args['nome'])) {
+
+     $new_page = array(
+         'post_type' => 'page',
+         'post_title' => $args['titulo'],
+         'post_name' => $args['nome'],
+         'post_status' => 'publish',
+         'post_author' => 1,
+     );
+
+     if ( isset($args['conteudo']) ) $new_page['post_content'] = $args['conteudo'];
+
+     wp_insert_post($new_page);
+
+  }
+}
