@@ -28,6 +28,22 @@ function pensandoodireito_redirecionar_login() {
     }
 }
 
+if (USE_CUSTOM_SIGNUP) {
+    add_action('register_url', 'pensandoodireito_register_url');
+
+    function pensandoodireito_register_url() {
+        return network_site_url('/cadastro/' );
+    }
+
+    add_action( 'signup_header', 'pensandoodireito_signup_header' );
+
+    function pensandoodireito_signup_header() {
+        if (!isset($_REQUEST['stage'])) {
+            wp_redirect( network_site_url( '/cadastro/' ) );
+        }
+    }
+}
+
 add_action('wp_footer', 'pensandoodireito_login_modal');
 
 function pensandoodireito_login_modal() {
