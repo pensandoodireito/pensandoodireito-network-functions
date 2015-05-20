@@ -28,7 +28,7 @@ function pensandoodireito_redirecionar_login() {
     }
 }
 
-if (USE_CUSTOM_SIGNUP) {
+if ( defined("USE_CUSTOM_SIGNUP") && USE_CUSTOM_SIGNUP == true ) {
     add_action('register_url', 'pensandoodireito_register_url');
 
     function pensandoodireito_register_url() {
@@ -234,7 +234,7 @@ class Pensando_registration_form {
                       <h4 class="font-roboto red">Comece a participar:</h4>
                       <form id="reg_form" method="POST" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
                           <div class="form-group">
-                              <label for="reg_nice_name" class="control-label">Nome Completo<span class="red">*</span></label>
+                              <label for="reg_nice_name" class="control-label">Nome de Apresentação<span class="red">*</span></label>
                               <input type="text" class="form-control" id="reg_nice_name" name="reg_nice_name" value="<?php echo $reg_nice_name; ?>" required title="Insira seu nome">
                               <span class="help-block"></span>
 
@@ -315,17 +315,30 @@ class Pensando_registration_form {
             echo '<strong>' . $this->validation()->get_error_message() . '</strong>';
             echo '</div>';
         } else {
-            $register_user = wp_insert_user($userdata);
-            if (!is_wp_error($register_user)) {
-                echo '<div style="margin-bottom: 6px" class="btn btn-block btn-lg btn-danger">';
-                echo '<strong>Registro completo. Vá para a <a href="' . wp_login_url() . '">página de login</a></strong>';
-                echo '</div>';
-            } else {
-                echo '<div style="margin-bottom: 6px" class="btn btn-block btn-lg btn-danger">';
-                echo '<strong>' . $register_user->get_error_message() . '</strong>';
-                echo '</div>';
-            }
+            $user_meta = array( 'user_nice_name' => $userdata['user_nice_name'],
+                                'user_pass' => wp_hash_password($userdata['user_pass']));
+            wpmu_signup_user( $userdata['user_login'], $userdata['user_email'], $user_meta );
+            echo '<div style="margin-bottom: 6px" class="btn btn-block btn-lg btn-danger">';
+            echo '<strong>Clique no link enviado por email para confirmar seu cadastro.</strong>';
+            echo '</div>';
         }
+    }
+
+    /**
+     * Persiste os campos especiais salvos no signup
+     *
+     * @param $user_id
+     * @param $password
+     * @param $meta
+     */
+    function participacao_salvar_campos_usuario ($user_id, $password, $meta) {
+
+        global $wpdb;
+
+        wp_update_user( array ('ID' => $user_id, 'display_name' => $meta['user_nice_name']));
+
+        $wpdb->query( $wpdb->prepare("UPDATE " . $wpdb->base_prefix . "users SET user_pass = %s WHERE ID=%d", $meta['user_pass'], $user_id ));
+
     }
 
     function shortcode(){
@@ -346,7 +359,8 @@ class Pensando_registration_form {
         return ob_get_clean();
     }
 }
-new Pensando_registration_form;
+$reg_form = new Pensando_registration_form;
+add_action('wpmu_activate_user', array(&$reg_form, 'participacao_salvar_campos_usuario'), 10, 3 );
 
 
 /*
