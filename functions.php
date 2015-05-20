@@ -219,16 +219,16 @@ class Pensando_registration_form {
                   <div class="col-xs-6 pr-lg">
                        <dl>
                           <dt><h5 class="font-roboto red"><strong>Por que devo me cadastrar?</strong></h5></dt>
-                          <dd class="mb-lg">Porque esta é uma plataforma que insere a sociedade no debate de projetos ou anteprojetos de lei no Brasil. Criar leis não é uma tarefa fácil e não deve estar somente nas mãos dos magistrados. Nosso objetivo é complementar - e em alguns casos até mesmo substituir - formas tradicionais de elaboração de leis. Você pode propor uma nova redação a cada artigo do texto normativo, contestar argumentos de outros participantes e agregar informações como artigos, textos e notícias. Por isso, ao se cadastrar, você será uma parte importante do processo, e sua opinião pode influenciar leis sobre assuntos que interessam ao nosso país.
+                          <dd class="mb-lg">Porque esta é mais uma oportunidade de diálogo aberta pelo governo para ouvir a sociedade sobre temas importantes. Após realizar o seu cadastro, você poderá comentar nos debates públicos abertos no site, concordar ou discordar com outros comentários, criar novas pautas e responder à pautas criadas por outros usuários. Por isso, ao se cadastrar, você será uma parte importante do processo, e sua opinião pode influenciar leis, decretos, portarias, e outras peças normativas sobre assuntos relevantes ao nosso país.
                           </dd>
                           <dt><h5 class="font-roboto red"><strong>O que são "debates"?</strong></h5></dt>
-                          <dd class="mb-lg">Na plataforma, os "debates" podem ser projetos ou anteprojetos de lei que estão abertos à participação social para sua consolidação. Eles não têm caráter plebiscitário, mas se destinam a coletar opiniões diversas e qualificadas sobre os temas em discussão. Depois dessa fase de discussão, as contribuições serão sistematizadas com a colaboração de acadêmicos, representantes da sociedade civil, membros do segmento empresarial e demais interessados.
+                          <dd class="mb-lg">Na plataforma, os "debates" podem ser projetos, anteprojetos de lei, textos de decreto ou portarias que estão abertos à participação social para sua consolidação. Eles se destinam a coletar opiniões diversas e qualificadas sobre os temas em discussão.
                           </dd>
                           <dt><h5 class="font-roboto red"><strong>Quem promove esta iniciativa?</strong></h5></dt>
-                          <dd class="mb-lg">Esta plataforma de participação da sociedade no processo legislativo é uma iniciativa da Secretaria de Assuntos Legislativos do Ministério da Justiça.
+                          <dd class="mb-lg">Esta plataforma é uma iniciativa da Secretaria de Assuntos Legislativos do Ministério da Justiça.
                           </dd>
                           <dt><h5 class="font-roboto red"><strong>Quais os termos de uso da plataforma?</strong></h5></dt>
-                          <dd class="mb-lg">Nossos termos de uso são bem razoáveis. Leia os <a href="http://localhost/termos-de-uso/" target="_blank">termos de uso</a>.
+                          <dd class="mb-lg">Para conhecer as regras que regem as interações dentro da plataforma, por favor, leia os <a href="http://localhost/termos-de-uso/" target="_blank">termos de uso.
                           </dd>
                        </dl>
                   </div>
