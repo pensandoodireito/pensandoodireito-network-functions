@@ -182,6 +182,7 @@ class Pensando_registration_form {
     private $email;
     private $password;
     private $nice_name; // Full Name
+    private $ref_url;
 
     function __construct(){
         add_shortcode('pd_registration_form', array($this, 'shortcode'));
@@ -193,6 +194,7 @@ class Pensando_registration_form {
       $reg_email = ( ! empty( $_POST['reg_email'] ) ) ? trim( $_POST['reg_email'] ) : '';
       $reg_password = ( ! empty( $_POST['reg_password'] ) ) ? trim( $_POST['reg_password'] ) : '';
       $reg_nice_name = ( ! empty( $_POST['reg_nice_name'] ) ) ? trim( $_POST['reg_nice_name'] ) : '';
+      $ref_url = ( ! empty( $_POST['ref_url'] ) ) ? $_POST['ref_url'] : @$_SERVER['HTTP_REFERER'];
 
       ?>
       <div id="hello">
@@ -234,6 +236,7 @@ class Pensando_registration_form {
                       <h4 class="font-roboto red">Comece a participar:</h4>
                       <form id="reg_form" method="POST" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
                           <div class="form-group">
+                              <input type="hidden" id='ref_url' name='ref_url' value='<?php echo $ref_url; ?>'/>
                               <label for="reg_nice_name" class="control-label">Nome de Apresentação<span class="red">*</span></label>
                               <input type="text" class="form-control" id="reg_nice_name" name="reg_nice_name" value="<?php echo $reg_nice_name; ?>" required title="Insira seu nome">
                               <span class="help-block"></span>
@@ -308,6 +311,7 @@ class Pensando_registration_form {
             'user_email' => esc_attr($this->email),
             'user_nice_name' => esc_attr($this->nice_name),
             'user_pass' => esc_attr($this->password),
+            'ref_url' => $this->ref_url
         );
 
         if (is_wp_error($this->validation())) {
@@ -316,7 +320,8 @@ class Pensando_registration_form {
             echo '</div>';
         } else {
             $user_meta = array( 'user_nice_name' => $userdata['user_nice_name'],
-                                'user_pass' => wp_hash_password($userdata['user_pass']));
+                'user_pass' => wp_hash_password($userdata['user_pass']),
+                'ref_url' => $userdata['ref_url']);
             wpmu_signup_user( $userdata['user_login'], $userdata['user_email'], $user_meta );
             echo '<div style="margin-bottom: 6px" class="btn btn-block btn-lg btn-danger">';
             echo '<strong>Clique no link enviado por email para confirmar seu cadastro.</strong>';
@@ -339,6 +344,20 @@ class Pensando_registration_form {
 
         $wpdb->query( $wpdb->prepare("UPDATE " . $wpdb->base_prefix . "users SET user_pass = %s WHERE ID=%d", $meta['user_pass'], $user_id ));
 
+        wp_set_auth_cookie ( $user_id );
+        wp_safe_redirect( $meta['ref_url'] );
+
+        exit;
+    }
+
+    /**
+     * Função que captura todo fluxo de saída do php para
+     * poder fazer posterior login e redirecionamento do usuário
+     * após sua ativação (ao clicar no link do email).
+     * 'Palmas' para o dev do wpmu .....
+     **/
+    function participacao_controle_fluxo () {
+        ob_start();
     }
 
     function shortcode(){
@@ -350,6 +369,7 @@ class Pensando_registration_form {
             $this->password = $_POST['reg_password'];
             $this->nice_name = $_POST['reg_nice_name'];
             $this->termos_uso = $_POST['termos_uso'];
+            $this->ref_url = $_POST['ref_url'];
 
             $this->validation();
             $this->registration();
@@ -361,7 +381,7 @@ class Pensando_registration_form {
 }
 $reg_form = new Pensando_registration_form;
 add_action('wpmu_activate_user', array(&$reg_form, 'participacao_salvar_campos_usuario'), 10, 3 );
-
+add_action('activate_wp_head', array(&$reg_form, 'participacao_controle_fluxo'), 100, 0 );
 
 /*
  * Remove Blog Slug Functions
