@@ -228,7 +228,7 @@ class Pensando_registration_form {
                           <dd class="mb-lg">Esta plataforma é uma iniciativa da Secretaria de Assuntos Legislativos do Ministério da Justiça.
                           </dd>
                           <dt><h5 class="font-roboto red"><strong>Quais os termos de uso da plataforma?</strong></h5></dt>
-                          <dd class="mb-lg">Para conhecer as regras que regem as interações dentro da plataforma, por favor, leia os <a href="http://localhost/termos-de-uso/" target="_blank">termos de uso.
+                          <dd class="mb-lg">Para conhecer as regras que regem as interações dentro da plataforma, por favor, leia os <a href="http://localhost/termos-de-uso/" target="_blank">termos de uso</a>.
                           </dd>
                        </dl>
                   </div>
