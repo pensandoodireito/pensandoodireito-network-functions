@@ -219,13 +219,13 @@ class Pensando_registration_form {
                   <div class="col-xs-6 pr-lg">
                        <dl>
                           <dt><h5 class="font-roboto red"><strong>Por que devo me cadastrar?</strong></h5></dt>
-                          <dd class="mb-lg">Porque esta é mais uma oportunidade de diálogo aberta pelo governo para ouvir a sociedade sobre temas importantes. Após realizar o seu cadastro, você poderá comentar nos debates públicos abertos no site, concordar ou discordar com outros comentários, criar novas pautas e responder à pautas criadas por outros usuários. Por isso, ao se cadastrar, você será uma parte importante do processo, e sua opinião pode influenciar leis, decretos, portarias, e outras peças normativas sobre assuntos relevantes ao nosso país.
+                          <dd class="mb-lg">Porque esta é mais uma oportunidade de diálogo aberta pelo governo para ouvir a sociedade sobre temas importantes. Após realizar o seu cadastro, você poderá comentar os debates públicos abertos no site, concordar ou discordar de outros comentários, criar novas pautas e responder à pautas criadas por outros usuários. Por isso, ao se cadastrar, você será uma parte importante do processo, e sua opinião pode influenciar leis, decretos, portarias, e outras peças normativas sobre assuntos relevantes ao nosso país.
                           </dd>
                           <dt><h5 class="font-roboto red"><strong>O que são "debates"?</strong></h5></dt>
                           <dd class="mb-lg">Na plataforma, os "debates" podem ser projetos, anteprojetos de lei, textos de decreto ou portarias que estão abertos à participação social para sua consolidação. Eles se destinam a coletar opiniões diversas e qualificadas sobre os temas em discussão.
                           </dd>
                           <dt><h5 class="font-roboto red"><strong>Quem promove esta iniciativa?</strong></h5></dt>
-                          <dd class="mb-lg">Esta plataforma é uma iniciativa da Secretaria de Assuntos Legislativos do Ministério da Justiça.
+                          <dd class="mb-lg">Esta plataforma é uma iniciativa da Secretaria de Assuntos Legislativos do Ministério da Justiça e do projeto Pensando o Direito.
                           </dd>
                           <dt><h5 class="font-roboto red"><strong>Quais os termos de uso da plataforma?</strong></h5></dt>
                           <dd class="mb-lg">Para conhecer as regras que regem as interações dentro da plataforma, por favor, leia os <a href="http://localhost/termos-de-uso/" target="_blank">termos de uso</a>.
