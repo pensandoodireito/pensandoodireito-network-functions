@@ -251,9 +251,21 @@ class Pensando_registration_form {
                           <div class="form-group">
                               <label for="reg_password" class="control-label">Senha<span class="red">*</span></label>
                               <input type="password" class="form-control" id="reg_password" name="reg_password" value="<?php echo $reg_password; ?>" required title="Insira uma senha">
-                              <label>
-                                  <input type="checkbox" name="showpassword" id="showpassword"> Mostrar senha
+                              <label id="showpassword">
+                                  <input type="checkbox" onclick="togglePassword(jQuery('#reg_password'), jQuery('#showpassword span'));"> <span>Mostrar senha</span>
                               </label>
+                              <script>
+                                  function togglePassword(element, target) {
+                                      var toggleBtn = document.getElementById('toggleBtn');
+                                      if(element.attr('type') == "password"){
+                                          element.attr('type', 'text');
+                                          target.text("Esconder senha");
+                                      } else {
+                                          element.attr('type', 'password');
+                                          target.text("Mostrar senha");
+                                      }
+                                  }
+                              </script>
                           </div>
                           <div class="form-group text-right">
                               <label for="termos_uso">
