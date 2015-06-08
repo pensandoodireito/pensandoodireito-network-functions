@@ -228,7 +228,7 @@ class Pensando_registration_form {
                           <dd class="mb-lg">Esta plataforma é uma iniciativa da Secretaria de Assuntos Legislativos do Ministério da Justiça e do projeto Pensando o Direito.
                           </dd>
                           <dt><h5 class="font-roboto red"><strong>Quais os termos de uso da plataforma?</strong></h5></dt>
-                          <dd class="mb-lg">Para conhecer as regras que regem as interações dentro da plataforma, por favor, leia os <a href="http://localhost/termos-de-uso/" target="_blank">termos de uso</a>.
+                          <dd class="mb-lg">Para conhecer as regras que regem as interações dentro da plataforma, por favor, leia os <a href="<?php site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
                           </dd>
                        </dl>
                   </div>
@@ -257,7 +257,7 @@ class Pensando_registration_form {
                           </div>
                           <div class="form-group text-right">
                               <label for="termos_uso">
-                                  <input type="checkbox" name="termos_uso" id="termos_uso"> Li e aceito os <a href="http://localhost/termos-de-uso/" target="_blank">termos de uso</a>.
+                                  <input type="checkbox" name="termos_uso" id="termos_uso"> Li e aceito os <a href="<?php site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
                               </label>
                           </div>
                           <button type="submit" name="reg_submit" class="btn btn-success btn-lg btn-block"><i class="fa fa-check-square-o"></i> Cadastrar</button>
