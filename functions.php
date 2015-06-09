@@ -239,11 +239,11 @@ class Pensando_registration_form {
                               <input type="hidden" id='ref_url' name='ref_url' value='<?php echo $ref_url; ?>'/>
                               <label for="reg_nice_name" class="control-label">Nome de Apresentação<span class="red">*</span></label>
                               <input type="text" class="form-control" id="reg_nice_name" name="reg_nice_name" value="<?php echo $reg_nice_name; ?>" required title="Insira seu nome">
-                              <span class="help-block"></span>
+                              <span class="help-block">Este nome será visível para todos os usuários da Plataforma.</span>
 
                               <label for="reg_username" class="control-label">Nome de Usuário<span class="red">*</span></label>
                               <input type="text" class="form-control" id="reg_username" name="reg_username" value="<?php echo $reg_username; ?>" required title="Insira seu nome de usuário">
-                              <span class="help-block">Este nome será visível para todos os usuários da Plataforma.</span>
+                              <span class="help-block">Ele não deve conter espaços nem caracteres especiais, como acentos ou cedilha.</span>
                               <label for="reg_email" class="control-label">Email<span class="red">*</span></label>
                               <input type="email" class="form-control" id="reg_email" name="reg_email" value="<?php echo $reg_email; ?>" required title="Insira seu email">
                               <span class="help-block">Verifique se digitou corretamente, pois vamos te enviar um email de confirmação.</span>
@@ -306,12 +306,12 @@ class Pensando_registration_form {
           return new WP_error('email', 'Email já cadastrado.');
       }
 
-      $details = array('Username' => $this->username
+      $details = array('nome de usuário' => $this->username
       );
 
       foreach ($details as $field => $detail) {
           if (!validate_username($detail)) {
-              return new WP_Error('name_invalid', 'Desculpe, mas "' . $field . '" não é uma entrada válida');
+              return new WP_Error('name_invalid', 'Desculpe, mas o campo "' . $field . '" está inválido. Ele não deve conter espaços nem caracteres especiais.');
           }
       }
 
