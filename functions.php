@@ -531,3 +531,34 @@ function pd_create_page($args) {
 
   }
 }
+
+add_shortcode('youtube', 'wp_youtube_video');
+function wp_youtube_video($atts) {
+    extract(shortcode_atts(array('id' => ''), $atts));
+    return '<iframe title="YouTube video player" class="youtube-player" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/'.$id.'" frameborder="0" allowFullScreen></iframe>';
+}
+
+/**
+ * Get Youtube video ID from URL
+ *
+ * @author http://stackoverflow.com/users/778669/kus
+ * @reference http://stackoverflow.com/a/17799714
+ * @param string $url
+ * @return mixed Youtube video ID or FALSE if not found
+ */
+function getYoutubeIdFromUrl($url) {
+    $parts = parse_url($url);
+    if(isset($parts['query'])){
+        parse_str($parts['query'], $qs);
+        if(isset($qs['v'])){
+            return $qs['v'];
+        }else if(isset($qs['vi'])){
+            return $qs['vi'];
+        }
+    }
+    if(isset($parts['path'])){
+        $path = explode('/', trim($parts['path'], '/'));
+        return $path[count($path)-1];
+    }
+    return false;
+}
