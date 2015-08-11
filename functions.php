@@ -311,7 +311,7 @@ class Pensando_registration_form {
 
       foreach ($details as $field => $detail) {
           if (!validate_username($detail)) {
-              return new WP_Error('name_invalid', 'Desculpe, mas o campo "' . $field . '" está inválido. Ele não deve conter espaços, nem caracteres especiais, e todos os caracteres devem ser minúsculos.');
+              return new WP_Error('name_invalid', 'Verifique o "' . $field . '". Os caracteres devem ser minúsculos, não deve haver espaços, nem caracteres especiais.');
           }
       }
 
