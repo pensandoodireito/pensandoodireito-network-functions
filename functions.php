@@ -228,7 +228,7 @@ class Pensando_registration_form {
                           <dd class="mb-lg">Esta plataforma é uma iniciativa da Secretaria de Assuntos Legislativos do Ministério da Justiça e do projeto Pensando o Direito.
                           </dd>
                           <dt><h5 class="font-roboto red"><strong>Quais os termos de uso da plataforma?</strong></h5></dt>
-                          <dd class="mb-lg">Para conhecer as regras que regem as interações dentro da plataforma, por favor, leia os <a href="<?php site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
+                          <dd class="mb-lg">Para conhecer as regras que regem as interações dentro da plataforma, por favor, leia os <a href="<?php echo site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
                           </dd>
                        </dl>
                   </div>
@@ -269,7 +269,7 @@ class Pensando_registration_form {
                           </div>
                           <div class="form-group text-right">
                               <label for="termos_uso">
-                                  <input type="checkbox" name="termos_uso" id="termos_uso"> Li e aceito os <a href="<?php site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
+                                  <input type="checkbox" name="termos_uso" id="termos_uso"> Li e aceito os <a href="<?php echo site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
                               </label>
                           </div>
                           <button type="submit" name="reg_submit" class="btn btn-success btn-lg btn-block"><i class="fa fa-check-square-o"></i> Cadastrar</button>
@@ -311,7 +311,7 @@ class Pensando_registration_form {
 
       foreach ($details as $field => $detail) {
           if (!validate_username($detail)) {
-              return new WP_Error('name_invalid', 'Desculpe, mas o campo "' . $field . '" está inválido. Ele não deve conter espaços nem caracteres especiais.');
+              return new WP_Error('name_invalid', 'Verifique o "' . $field . '". Os caracteres devem ser minúsculos, não deve haver espaços, nem caracteres especiais.');
           }
       }
 
