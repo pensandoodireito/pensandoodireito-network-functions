@@ -211,6 +211,7 @@ class Pensando_registration_form {
         add_shortcode('pd_registration_form', array($this, 'shortcode'));
         $this->addFunctionToAction('email_exists_ajax');
         $this->addFunctionToAction('username_valid_ajax');
+        $this->addFunctionToAction('signup_ajax');
 
     }
 
@@ -219,33 +220,59 @@ class Pensando_registration_form {
         add_action( 'wp_ajax_nopriv_' . $method, array($this, $method));
     }
 
+    function signup_ajax()
+    {
+        // Handle insertion ajax
+        if (isset($_POST['_wpnonce'])) {
+            $this->username = $_POST['username'];
+            $this->email = $_POST['email'];
+            $this->password = $_POST['senha'];
+            $this->nice_name = $_POST['nome'];
+            $this->termos_uso = $_POST['termos_uso'];
+            $this->ref_url = $_POST['_wp_http_referer'];
+
+            $this->validation();
+
+            header('Content-Type: application/json', true);
+            $json = json_encode($this->registration());
+            die($json);
+        }
+    }
+
     function email_exists_ajax()
     {
-        $email = isset($_POST['email'])?$_POST['email']:'';
+        $email = isset($_GET['email'])?$_GET['email']:'';
         $exists = email_exists($email) !== false;
-        $json = json_encode($exists);
 
-        header("Content-type: application/json", true);
-        die($json);
+        if(!$exists)
+        {
+            header("HTTP/1.1 200 OK", true);
+
+        }else
+        {
+            header("HTTP/1.1 404 Not Found", true);
+        }
+        die;
+
     }
 
     function username_valid_ajax(){
         $username = isset($_GET['username'])?$_GET['username']:'';
-        $json = array();
-        if(!validate_username($username)){
-            $json['error'] = 'user_invalid';
-        }elseif(username_exists($username)){
-            $json['error'] = 'user_exists';
-        }else{
-            $json['success'] = true;
+
+        $isValid = validate_username($username) && !username_exists($username);
+        if($isValid)
+        {
+            header("HTTP/1.1 200 OK", true);
+
+        }else
+        {
+            header("HTTP/1.1 404 Not Found", true);
         }
-        header("Content-type: application/json", true);
-        die(json_encode($json));
 
     }
 
     public function registration_form() {
-
+        wp_enqueue_script( 'validator', get_template_directory_uri() . '/js/validator.min.js' , array('jquery', 'bootstrap'), false, true );
 ?>
 
         <div id="cadastro">
@@ -260,54 +287,34 @@ class Pensando_registration_form {
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div id="form-cadastro">
-                                    <form>
+                                    <form data-toggle="validator" role="form">
+                                        <?php wp_nonce_field( 'cadastrar-usuario' );?>
                                         <div class="form-group">
                                             <label for="nomeUser">Nome de <span class="red">usuário</span>:</label>
-                                            <input type="text" class="form-control" id="nomeUser"
-                                                   placeholder="Nome de usuário">
+                                            <input type="text" class="form-control" name="username" id="username" placeholder="Nome de usuário" data-error="Nome de usuário inválido ou já está em uso." data-remote="wp-admin/admin-ajax.php?action=username_valid_ajax" required>
+                                            <span class="help-block with-erros"></span>
                                         </div>
                                         <div class="form-group mt-md">
                                             <label for="nomeApres">Nome de <span class="red">apresentação:</span></label>
-                                            <input type="text" class="form-control" id="nomeApres"
-                                                   placeholder="Nome de apresentação">
+                                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome de apresentação" required>
                                         </div>
                                         <div class="form-group mt-md">
                                             <label for="email">E-mail</label>
-                                            <input type="text" class="form-control" id="email"
-                                                   placeholder="Seu e-mail">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Seu e-mail" data-error="Endereço de e-mail inválido ou já está em uso." data-remote="wp-admin/admin-ajax.php?action=email_exists_ajax" required>
+                                            <span class="help-block">O e-mail deve conter um formato válido e ainda não estar cadastrado em nosso sistema.</span>
                                         </div>
                                         <div class="form-group mt-md">
                                             <label for="senha">Sua senha:</label>
-                                            <input type="password" class="form-control" id="senha"
-                                                   placeholder="Sua senha">
+                                            <input type="password" class="form-control" id="senha" name="senha" data-minlength="6" maxlength="10" required>
+                                            <span class="help-block">A senha deve conter de 6 à 10 caracteres.</span>
                                         </div>
                                         <div class="form-group mt-md">
-                                            <input type="checkbox" name="termos_uso" id="termos_uso"> Li e aceito os <a href="<?php echo site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
+                                            <input type="checkbox" name="termos_uso" name="termos_uso" data-error="Você deve ler e concordar com o termo antes de continuar o cadastro." required> Li e aceito os <a href="<?php echo site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
+                                            <div class="help-block"></div>
                                         </div>
                                         <button type="submit" class="btn btn-danger mt-md">Cadastrar</button>
                                     </form>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-body bg-success pt-lg text-center">
-                                <h3 class="font-roboto text-success"><i class="fa fa-check "></i> Cadastro realizado com
-                                    sucesso!
-                                </h3>
-
-                                <p class="mt-md h4"><strong>Agora verifique seu e-mail.</strong></p>
-
-                                <p>Você receberá um e-mail de confirmação, basta clicar no link e você poderá participar de
-                                    qualquer debate do projeto! Obrigado!</p>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-body bg-danger pt-lg text-center">
-                                <h3 class="font-roboto red"><i class="fa fa-exclamation-circle"></i> Ooops!</h3>
-
-                                <p class="mt-md h4"><strong>Ocorreu um erro durante o seu cadastro.</strong></p>
-
-                                <p>Tente novamente em alguns instantes</p>
                             </div>
                         </div>
 
@@ -450,6 +457,8 @@ class Pensando_registration_form {
     }
 
     function registration() {
+        check_ajax_referer( 'cadastrar-usuario' );
+
         $userdata = array(
             'user_login' => esc_attr($this->username),
             'user_email' => esc_attr($this->email),
@@ -458,19 +467,20 @@ class Pensando_registration_form {
             'ref_url' => $this->ref_url
         );
 
+        $json = array();
+
         if (is_wp_error($this->validation())) {
-            echo '<div style="margin-bottom: 6px;" class="btn btn-block btn-lg btn-danger">';
-            echo '<strong>' . $this->validation()->get_error_message() . '</strong>';
-            echo '</div>';
+            $json['error'] = $this->validation()->get_error_message();
         } else {
             $user_meta = array( 'user_nice_name' => $userdata['user_nice_name'],
                 'user_pass' => wp_hash_password($userdata['user_pass']),
                 'ref_url' => $userdata['ref_url']);
-            wpmu_signup_user( $userdata['user_login'], $userdata['user_email'], $user_meta );
-            echo '<div style="margin-bottom: 6px" class="btn btn-block btn-lg btn-danger">';
-            echo '<strong>Clique no link enviado por email para confirmar seu cadastro.</strong>';
-            echo '</div>';
+            //Sorry
+            @wpmu_signup_user( $userdata['user_login'], $userdata['user_email'], $user_meta );
+            $json['success'] = true;
         }
+
+        return $json;
     }
 
     /**
@@ -506,20 +516,8 @@ class Pensando_registration_form {
 
     function shortcode(){
         ob_start();
-
-        if (isset($_POST['reg_submit'])) {
-            $this->username = $_POST['reg_username'];
-            $this->email = $_POST['reg_email'];
-            $this->password = $_POST['reg_password'];
-            $this->nice_name = $_POST['reg_nice_name'];
-            $this->termos_uso = $_POST['termos_uso'];
-            $this->ref_url = $_POST['ref_url'];
-
-            $this->validation();
-            $this->registration();
-         }
-
         $this->registration_form();
+
         return ob_get_clean();
     }
 }
