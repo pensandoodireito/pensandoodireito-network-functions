@@ -292,7 +292,7 @@ class Pensando_registration_form {
                                         <div class="form-group">
                                             <label for="nomeUser">Nome de <span class="red">usuário</span>:</label>
                                             <input type="text" class="form-control" name="username" id="username" placeholder="Nome de usuário" data-error="Nome de usuário inválido ou já está em uso." data-remote="wp-admin/admin-ajax.php?action=username_valid_ajax" required>
-                                            <span class="help-block with-erros"></span>
+                                            <span class="help-block">Usuário inválido ou já cadastrado</span>
                                         </div>
                                         <div class="form-group mt-md">
                                             <label for="nomeApres">Nome de <span class="red">apresentação:</span></label>
