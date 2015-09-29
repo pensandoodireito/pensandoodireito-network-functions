@@ -305,8 +305,8 @@ class Pensando_registration_form {
                                         </div>
                                         <div class="form-group mt-md">
                                             <label for="senha">Sua senha:</label>
-                                            <input type="password" class="form-control" id="senha" name="senha" data-minlength="6" maxlength="10" required>
-                                            <span class="help-block">A senha deve conter de 6 à 10 caracteres.</span>
+                                            <input type="password" class="form-control" id="senha" name="senha" data-minlength="8" maxlength="10" required>
+                                            <span class="help-block">A senha deve conter de 8 à 10 caracteres.</span>
                                         </div>
                                         <div class="form-group mt-md">
                                             <input type="checkbox" name="termos_uso" name="termos_uso" data-error="Você deve ler e concordar com o termo antes de continuar o cadastro." required> Li e aceito os <a href="<?php echo site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
