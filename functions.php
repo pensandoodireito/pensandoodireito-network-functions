@@ -49,7 +49,7 @@ add_action('wp_footer', 'pensandoodireito_login_modal');
 function pensandoodireito_login_modal() {
 ?>
     <!-- Modal -->
-    <div class="modal fade" id="modalcadastro" tabindex="-1" role="dialog" aria-labelledby="modalcadastro">
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
         <div class="modal-dialog modal-sm">
             <form action="" method="post">
             <div class="modal-content">
@@ -72,7 +72,7 @@ function pensandoodireito_login_modal() {
                     <button type="submit" class="btn btn-danger">Entrar</button>
                 </div>
                 <div class="modal-footer">
-                    <p><a href="#" class="remember_me">Esqueceu a senha?</a> | <a href="/cadastro">Cadastre-se</a></p>
+                    <p><a href="#" class="remember_me">Esqueceu a senha?</a> | <a href="#cadastro" data-toggle="modal" data-target="#registrationModal">Cadastre-se</a></p>
                 </div>
             </div>
             </form>
@@ -268,7 +268,7 @@ class Pensando_registration_form {
         {
             header("HTTP/1.1 404 Not Found", true);
         }
-
+        die;
     }
 
     public function registration_form() {
@@ -276,7 +276,6 @@ class Pensando_registration_form {
 ?>
 
         <div id="cadastro">
-            <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="font-roboto red">Cadastre-se</h1>
@@ -322,9 +321,9 @@ class Pensando_registration_form {
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-sm-4 col-xs-12">
-                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/oquee/oquee-001.png"
+                                <img src="<?php echo get_template_directory_uri(); ?>/../pensandoodireito-tema/images/oquee/oquee-001.png"
                                      class="img-adptive"
-                                     alt="Proteção de Dados Pessoais">
+                                     alt="Proteção de Dados Pessoais" />
                             </div>
                             <div class="col-sm-8 col-xs-12">
                                 <h3 class="font-roboto red">Mais de <strong><?php echo get_user_count(); ?></strong> participantes!</h3>
@@ -414,7 +413,6 @@ class Pensando_registration_form {
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
 
       <?php
@@ -445,8 +443,7 @@ class Pensando_registration_form {
           return new WP_error('email', 'Email já cadastrado.');
       }
 
-      $details = array('nome de usuário' => $this->username
-      );
+      $details = array('nome de usuário' => $this->username);
 
       foreach ($details as $field => $detail) {
           if (!validate_username($detail)) {
@@ -469,14 +466,15 @@ class Pensando_registration_form {
 
         $json = array();
 
-        if (is_wp_error($this->validation())) {
-            $json['error'] = $this->validation()->get_error_message();
+        $validation = $this->validation();
+        if (is_wp_error($validation)) {
+            $json['error'] = $validation->get_error_message();
         } else {
             $user_meta = array( 'user_nice_name' => $userdata['user_nice_name'],
                 'user_pass' => wp_hash_password($userdata['user_pass']),
                 'ref_url' => $userdata['ref_url']);
-            //Sorry
-            @wpmu_signup_user( $userdata['user_login'], $userdata['user_email'], $user_meta );
+
+            wpmu_signup_user( $userdata['user_login'], $userdata['user_email'], $user_meta );
             $json['success'] = true;
         }
 
