@@ -321,9 +321,9 @@ class Pensando_registration_form {
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-sm-4 col-xs-12">
-                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/oquee/oquee-001.png"
+                                <img src="<?php echo get_template_directory_uri(); ?>/../pensandoodireito-tema/images/oquee/oquee-001.png"
                                      class="img-adptive"
-                                     alt="Proteção de Dados Pessoais">
+                                     alt="Proteção de Dados Pessoais" />
                             </div>
                             <div class="col-sm-8 col-xs-12">
                                 <h3 class="font-roboto red">Mais de <strong><?php echo get_user_count(); ?></strong> participantes!</h3>
