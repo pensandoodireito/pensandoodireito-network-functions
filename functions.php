@@ -274,137 +274,141 @@ class Pensando_registration_form {
     public function registration_form() {
         wp_enqueue_script( 'validator', get_template_directory_uri() . '/js/validator.min.js' , array('jquery', 'bootstrap'), false, true );
 ?>
-
-        <div id="cadastro">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="font-roboto red">Cadastre-se</h1>
+        <div id="registrationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title red font-roboto">Cadastre-se</h4>
                     </div>
-                </div>
-                <div class="row mt-md">
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div id="form-cadastro">
-                                    <form data-toggle="validator" role="form">
-                                        <?php wp_nonce_field( 'cadastrar-usuario' );?>
-                                        <div class="form-group">
-                                            <label for="nomeUser">Nome de <span class="red">usuário</span>:</label>
-                                            <input type="text" class="form-control" name="username" id="username" placeholder="Nome de usuário" data-error="Nome de usuário inválido ou já está em uso." data-remote="wp-admin/admin-ajax.php?action=username_valid_ajax" required>
-                                            <span class="help-block">Usuário inválido ou já cadastrado</span>
-                                        </div>
-                                        <div class="form-group mt-md">
-                                            <label for="nomeApres">Nome de <span class="red">apresentação:</span></label>
-                                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome de apresentação" required>
-                                        </div>
-                                        <div class="form-group mt-md">
-                                            <label for="email">E-mail</label>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Seu e-mail" data-error="Endereço de e-mail inválido ou já está em uso." data-remote="wp-admin/admin-ajax.php?action=email_exists_ajax" required>
-                                            <span class="help-block">O e-mail deve conter um formato válido e ainda não estar cadastrado em nosso sistema.</span>
-                                        </div>
-                                        <div class="form-group mt-md">
-                                            <label for="senha">Sua senha:</label>
-                                            <input type="password" class="form-control" id="senha" name="senha" data-minlength="8" maxlength="10" required>
-                                            <span class="help-block">A senha deve conter de 8 à 10 caracteres.</span>
-                                        </div>
-                                        <div class="form-group mt-md">
-                                            <input type="checkbox" name="termos_uso" name="termos_uso" data-error="Você deve ler e concordar com o termo antes de continuar o cadastro." required> Li e aceito os <a href="<?php echo site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
-                                            <div class="help-block"></div>
-                                        </div>
-                                        <button type="submit" class="btn btn-danger mt-md">Cadastrar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-sm-4 col-xs-12">
-                                <img src="<?php echo get_template_directory_uri(); ?>/../pensandoodireito-tema/images/oquee/oquee-001.png"
-                                     class="img-adptive"
-                                     alt="Proteção de Dados Pessoais" />
-                            </div>
-                            <div class="col-sm-8 col-xs-12">
-                                <h3 class="font-roboto red">Mais de <strong><?php echo get_user_count(); ?></strong> participantes!</h3>
-                                <ul class="list-unstyled text-left h5">
-                                    <li class="mt-sm text-success"><i class="fa fa-check "></i> <strong>contribua</strong>
-                                        com suas ideias e opiniões
-                                    </li>
-                                    <li class="mt-sm text-success"><i class="fa fa-check"></i> fique por dentro das
-                                        <strong>leis em elaboração</strong></li>
-                                    <li class="mt-sm text-success"><i class="fa fa-check"></i> <strong>participe</strong>
-                                        do processo legislativo
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div id="cadastro" class="modal-body">
                         <div class="row mt-md">
-                            <div class="col-md-12">
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingOne">
-                                            <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                                   href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    Por que devo me cadastrar?
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
-                                             aria-labelledby="headingOne">
-                                            <div class="panel-body">
-                                                <p>Porque esta é mais uma oportunidade de diálogo aberta pelo governo para ouvir
-                                                    a
-                                                    sociedade sobre temas importantes.</p>
-
-                                                <p>Após realizar o seu cadastro, você poderá
-                                                    comentar os debates públicos abertos no site, concordar ou discordar de
-                                                    outros
-                                                    comentários, criar novas pautas e responder à pautas criadas por outros
-                                                    usuários.</p>
-
-                                                <p>Por isso, ao se cadastrar, você será uma parte importante do processo,
-                                                    e sua opinião pode influenciar leis, decretos, portarias, e outras peças
-                                                    normativas sobre assuntos relevantes ao nosso país.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingTwo">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse"
-                                                   data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
-                                                   aria-controls="collapseTwo">
-                                                    O que são "debates"?
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
-                                             aria-labelledby="headingTwo">
-                                            <div class="panel-body">
-                                                Na plataforma, os "debates" podem ser projetos, anteprojetos de lei, textos de
-                                                decreto ou portarias que estão abertos à participação social para sua
-                                                consolidação. Eles se destinam a coletar opiniões diversas e qualificadas sobre
-                                                os temas em discussão.
-                                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div id="form-cadastro">
+                                            <form data-toggle="validator" role="form">
+                                                <?php wp_nonce_field( 'cadastrar-usuario' );?>
+                                                <div class="form-group">
+                                                    <label for="nomeUser">Nome de <span class="red">usuário</span>:</label>
+                                                    <input type="text" class="form-control" name="username" id="username" placeholder="Nome de usuário" data-error="Nome de usuário inválido ou já está em uso." data-remote="wp-admin/admin-ajax.php?action=username_valid_ajax" required>
+                                                    <span class="help-block">Usuário inválido ou já cadastrado</span>
+                                                </div>
+                                                <div class="form-group mt-md">
+                                                    <label for="nomeApres">Nome de <span class="red">apresentação:</span></label>
+                                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome de apresentação" required>
+                                                </div>
+                                                <div class="form-group mt-md">
+                                                    <label for="email">E-mail</label>
+                                                    <input type="email" class="form-control" id="email" name="email" placeholder="Seu e-mail" data-error="Endereço de e-mail inválido ou já está em uso." data-remote="wp-admin/admin-ajax.php?action=email_exists_ajax" required>
+                                                    <span class="help-block">O e-mail deve conter um formato válido e ainda não estar cadastrado em nosso sistema.</span>
+                                                </div>
+                                                <div class="form-group mt-md">
+                                                    <label for="senha">Sua senha:</label>
+                                                    <input type="password" class="form-control" id="senha" name="senha" data-minlength="8" maxlength="10" required>
+                                                    <span class="help-block">A senha deve conter de 8 à 10 caracteres.</span>
+                                                </div>
+                                                <div class="form-group mt-md">
+                                                    <input type="checkbox" name="termos_uso" name="termos_uso" autocomplete="off" data-error="Você deve ler e concordar com o termo antes de continuar o cadastro." required> Li e aceito os <a href="<?php echo site_url('/termos-de-uso/'); ?>" target="_blank">termos de uso</a>.
+                                                    <div class="help-block"></div>
+                                                </div>
+                                                <button type="submit" class="btn btn-danger mt-md">Cadastrar</button>
+                                            </form>
                                         </div>
                                     </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingThree">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse"
-                                                   data-parent="#accordion" href="#collapseThree" aria-expanded="false"
-                                                   aria-controls="collapseThree">
-                                                    Quem promove esta iniciativa?
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
-                                             aria-labelledby="headingThree">
-                                            <div class="panel-body">
-                                                Esta plataforma é uma iniciativa da Secretaria de Assuntos
-                                                Legislativos do Ministério da Justiça e do projeto Pensando o Direito.
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-12">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/../pensandoodireito-tema/images/oquee/oquee-001.png"
+                                             class="img-adptive"
+                                             alt="Proteção de Dados Pessoais" />
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12">
+                                        <h3 class="font-roboto red">Mais de <strong><?php echo get_user_count(); ?></strong> participantes!</h3>
+                                        <ul class="list-unstyled text-left h5">
+                                            <li class="mt-sm text-success"><i class="fa fa-check "></i> <strong>contribua</strong>
+                                                com suas ideias e opiniões
+                                            </li>
+                                            <li class="mt-sm text-success"><i class="fa fa-check"></i> fique por dentro das
+                                                <strong>leis em elaboração</strong></li>
+                                            <li class="mt-sm text-success"><i class="fa fa-check"></i> <strong>participe</strong>
+                                                do processo legislativo
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row mt-md">
+                                    <div class="col-md-12">
+                                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingOne">
+                                                    <h4 class="panel-title">
+                                                        <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                                           href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                            Por que devo me cadastrar?
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                                                     aria-labelledby="headingOne">
+                                                    <div class="panel-body">
+                                                        <p>Porque esta é mais uma oportunidade de diálogo aberta pelo governo para ouvir
+                                                            a
+                                                            sociedade sobre temas importantes.</p>
+
+                                                        <p>Após realizar o seu cadastro, você poderá
+                                                            comentar os debates públicos abertos no site, concordar ou discordar de
+                                                            outros
+                                                            comentários, criar novas pautas e responder à pautas criadas por outros
+                                                            usuários.</p>
+
+                                                        <p>Por isso, ao se cadastrar, você será uma parte importante do processo,
+                                                            e sua opinião pode influenciar leis, decretos, portarias, e outras peças
+                                                            normativas sobre assuntos relevantes ao nosso país.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingTwo">
+                                                    <h4 class="panel-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse"
+                                                           data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                                                           aria-controls="collapseTwo">
+                                                            O que são "debates"?
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                                     aria-labelledby="headingTwo">
+                                                    <div class="panel-body">
+                                                        Na plataforma, os "debates" podem ser projetos, anteprojetos de lei, textos de
+                                                        decreto ou portarias que estão abertos à participação social para sua
+                                                        consolidação. Eles se destinam a coletar opiniões diversas e qualificadas sobre
+                                                        os temas em discussão.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingThree">
+                                                    <h4 class="panel-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse"
+                                                           data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                                                           aria-controls="collapseThree">
+                                                            Quem promove esta iniciativa?
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                                                     aria-labelledby="headingThree">
+                                                    <div class="panel-body">
+                                                        Esta plataforma é uma iniciativa da Secretaria de Assuntos
+                                                        Legislativos do Ministério da Justiça e do projeto Pensando o Direito.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -413,8 +417,8 @@ class Pensando_registration_form {
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
-
       <?php
     }
 
