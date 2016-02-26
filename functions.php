@@ -545,8 +545,6 @@ class Pensando_registration_form {
 
 		wp_set_auth_cookie( $user_id );
 		wp_safe_redirect( $meta['ref_url'] );
-
-		exit;
 	}
 
 	/**
